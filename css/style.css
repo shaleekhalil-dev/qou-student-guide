@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Tajawal:wght@400;500;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght=600;700;800&family=Tajawal:wght=400;500;700;800&display=swap');
 
 * {
     box-sizing: border-box;
@@ -256,4 +256,19 @@ td:last-child { border-left: 1px solid rgba(255, 255, 255, 0.6); border-radius: 
 @keyframes slideIn {
     from { transform: translateX(-150%); opacity: 0; }
     to { transform: translateX(0); opacity: 1; }
+}
+
+@media (max-width: 992px) {
+    .navbar { padding: 20px; flex-direction: column; gap: 15px; }
+    .nav-links { flex-wrap: wrap; justify-content: center; gap: 10px; }
+    .grid-3 { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; gap: 20px; }
+    .glass-card { padding: 25px; border-radius: 20px; }
+    h1 { font-size: 28px; }
+    h2 { font-size: 22px; }
+    p { font-size: 16px; }
+    table { font-size: 14px; display: block; overflow-x: auto; }
 }

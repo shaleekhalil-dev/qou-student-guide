@@ -6,7 +6,6 @@
     <title>ساعدنا في التطوير - جامعة القدس المفتوحة</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <style>
         .form-group {
             margin-bottom: 25px;
@@ -42,11 +41,6 @@
             resize: vertical;
             min-height: 180px;
         }
-        .admin-section {
-            margin-top: 40px;
-            border-top: 2px dashed rgba(34, 197, 94, 0.3);
-            padding-top: 30px;
-        }
     </style>
 </head>
 <body>
@@ -67,11 +61,11 @@
     <div class="container">
         <div class="glass-card">
             <h1>ساعدنا في تطوير الدليل الإرشادي</h1>
-            <p>رأيكم هو الركيزة الأساسية لتجويد وتحسين مخرجات التحول الرقمي. يرجى تزويدنا بتجربتكم ومقترحاتكم حول تسهيل الإجراءات الأكاديمية والتقنية المطروحة في هذا الدليل لنتمكن من تطويرها باستمرار بما يتوافق مع تطلعاتكم واحتياجاتكم الفصيلية.</p>
+            <p>رأيكم هو الركيزة الأساسية لتجويد وتحسين مخرجات التحول الرقمي. يرجى تزويدنا بتجربتكم ومقترحاتكم حول تسهيل الإجراءات الأكاديمية والتقنية المطروحة في هذا الدليل لنتمكن من توثيقها حياً ومباشرة داخل السجلات المركزية السحابية للجامعة.</p>
         </div>
 
         <div class="glass-card">
-            <form id="feedbackForm" onsubmit="event.preventDefault(); handleFormSubmit();">
+            <form id="feedbackForm" onsubmit="event.preventDefault(); sendDataToGoogleSheet();">
                 <div class="form-group">
                     <label class="form-label" for="studentName">اسم الطالب ثلاثياً</label>
                     <input type="text" id="studentName" class="form-control" placeholder="أدخل اسمك الكريم هنا..." required>
@@ -83,19 +77,11 @@
                 </div>
 
                 <div style="text-align: left;">
-                    <button type="submit" class="btn">
-                        <i class="fas fa-paper-plane" style="margin-left: 8px;"></i>إرسال التقييم والمقترحات
+                    <button type="submit" id="submitBtn" class="btn">
+                        <i class="fas fa-paper-plane" style="margin-left: 8px;"></i>إرسال التقييم السحابي
                     </button>
                 </div>
             </form>
-
-            <div class="admin-section">
-                <h2>لوحة تحكم إدارة البيانات واستخراج السجلات</h2>
-                <p>من أجل العرض التقديمي للمشروع، يمكنك توليد وتحميل كافة الردود والتغديات الراجعة التي أدخلها الطلاب مباشرة في ملف إكسل رسمي منظم ومطابق للمواصفات:</p>
-                <button onclick="exportToExcel()" class="btn" style="background: linear-gradient(135deg, #15803d 0%, #16a34a 100%); margin-top: 15px;">
-                    <i class="fas fa-file-excel" style="margin-left: 8px;"></i>تحميل سجل الردود كملف Excel
-                </button>
-            </div>
         </div>
     </div>
 
@@ -107,52 +93,53 @@
 
     <script>
         const container = document.getElementById('toastContainer');
-        
-        setTimeout(() => {
-            const loadToast = document.createElement('div');
-            loadToast.className = 'toast-notification';
-            loadToast.innerHTML = '<i class="fas fa-comment-medical"></i> <span>صندوق التطوير نشط الآن، صوتك يهمنا في صياغة الحلول الرقمية المستدامة.</span>';
-            container.appendChild(loadToast);
-            setTimeout(() => loadToast.remove(), 5000);
-        }, 1500);
+        const scriptUrl = 'https://script.google.com/macros/s/AKfycbxdQCQkDn3DAvxHEmCn7ddE_d54vipVw48PPbZ5at4bKWxQTQgLFPRbG6kya_YLf_wW9Q/exec';
 
-        function handleFormSubmit() {
+        function sendDataToGoogleSheet() {
             const name = document.getElementById('studentName').value;
             const text = document.getElementById('feedbackText').value;
             const date = new Date().toLocaleString('ar-EG');
-            
-            let feedbackList = JSON.parse(localStorage.getItem('qou_feedback_data')) || [];
-            feedbackList.push({
-                'اسم الطالب الباحث': name,
-                'التغذية الراجعة والمقترحات': text,
-                'تاريخ وقت الإرسال': date
-            });
-            localStorage.setItem('qou_feedback_data', JSON.stringify(feedbackList));
+            const submitBtn = document.getElementById('submitBtn');
 
-            const successToast = document.createElement('div');
-            successToast.className = 'toast-notification';
-            successToast.innerHTML = `<i class="fas fa-check-circle" style="color: #22c55e;"></i> <span>شكراً لك يا ${name}! تم حفظ بياناتك وتحديث السجل المركزي للإكسل بنجاح.</span>`;
-            container.appendChild(successToast);
-            
-            document.getElementById('feedbackForm').reset();
-            setTimeout(() => successToast.remove(), 6000);
-        }
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'جاري المزامنة السحابية...';
 
-        function exportToExcel() {
-            let feedbackList = JSON.parse(localStorage.getItem('qou_feedback_data')) || [];
-            if (feedbackList.length === 0) {
+            const payload = {
+                name: name,
+                feedback: text,
+                date: date
+            };
+
+            fetch(scriptUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                const successToast = document.createElement('div');
+                successToast.className = 'toast-notification';
+                successToast.innerHTML = `<i class="fas fa-cloud-upload-alt" style="color: #22c55e;"></i> <span>برافو! تم إرسال التغذية الراجعة وحفظها في قاعدة بيانات Google Sheets الحية بنجاح.</span>`;
+                container.appendChild(successToast);
+                
+                document.getElementById('feedbackForm').reset();
+                setTimeout(() => successToast.remove(), 6000);
+            })
+            .catch(() => {
                 const errorToast = document.createElement('div');
                 errorToast.className = 'toast-notification';
                 errorToast.style.borderColor = '#ef4444';
-                errorToast.innerHTML = '<i class="fas fa-exclamation-circle" style="color: #ef4444;"></i> <span>لا توجد ردود مسجلة حالياً لتصديرها، يرجى إدخال رد تجريبي أولاً.</span>';
+                errorToast.innerHTML = '<i class="fas fa-exclamation-triangle" style="color: #ef4444;"></i> <span>خطأ في الاتصال، تأكد من إعدادات الرابط السحابي.</span>';
                 container.appendChild(errorToast);
                 setTimeout(() => errorToast.remove(), 5000);
-                return;
-            }
-            const worksheet = XLSX.utils.json_to_sheet(feedbackList);
-            const workbook = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(workbook, worksheet, "تغذية الطلاب المدخلة");
-            XLSX.writeFile(workbook, "QOU_Student_Feedback_Report.xlsx");
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane" style="margin-left: 8px;"></i>إرسال التقييم السحابي';
+            });
         }
     </script>
 </body>
