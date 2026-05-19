@@ -10,6 +10,9 @@
 <body>
     <nav class="navbar">
         <a href="../index.html" class="navbar-brand">جامعة القدس المفتوحة</a>
+        <div class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">
+            <i class="fas fa-bars"></i>
+        </div>
         <ul class="nav-links">
             <li><a href="../index.html">الرئيسية</a></li>
             <li><a href="registration.html">إجراءات التسجيل</a></li>
@@ -24,79 +27,27 @@
 
     <div class="container">
         <div class="glass-card">
-            <h1>عن المشروع والمنهجية المتبعة</h1>
-            <p>تم تطوير هذا الموقع الإرشادي التفاعلي كدراسة حالة تطبيقية متكاملة لربط الحلول التقنية الرقمية بالاحتياجات الفعلية لطلبة الدراسات العليا. يرتكز العمل على تفكيك التحديات التي تواجه الطلبة الجدد أثناء فترات الالتحاق والتسجيل، وإعادة صياغتها كمسارات برمجية مبسطة تدعم استقرارهم وأداءهم الأكاديمي والمهني بنمذجة رقمية رشيقة.</p>
-        </div>
-
-        <div class="glass-card">
-            <h2>مراحل منهجية التفكير التصميمي (Design Thinking)</h2>
-            <p>يتبع المشروع الخطوات العلمية الخمس المعتمدة في المساق الدراسي لمعالجة المشكلات بكفاءة وابتكار:</p>
-            <div class="grid-3" style="margin-top: 25px; margin-bottom: 25px;">
-                <div class="tile">
-                    <i class="fas fa-heart" style="font-size: 32px; color: #166534; margin-bottom: 15px;"></i>
-                    <h3>1. التعاطف</h3>
-                    <p style="font-size: 15px; color: #334155;">فهم الصعوبات الجغرافية والتقنية والنفسية للطلاب عبر الاستبيانات الميدانية المباشرة.</p>
-                </div>
-                <div class="tile">
-                    <i class="fas fa-crosshairs" style="font-size: 32px; color: #166534; margin-bottom: 15px;"></i>
-                    <h3>2. التحديد</h3>
-                    <p style="font-size: 15px; color: #334155;">صياغة الفجوات الإجرائية المكتشفة وتأطيرها في سؤال تصميمي واضح وقابل للحل المستدام.</p>
-                </div>
-                <div class="tile">
-                    <i class="fas fa-lightbulb" style="font-size: 32px; color: #166534; margin-bottom: 15px;"></i>
-                    <h3>3. توليد الأفكار</h3>
-                    <p style="font-size: 15px; color: #334155;">العصف الذهني لابتكار حلول تنظيمية وبرمجية تجمع شتات مصادر المعلومات في قناة موحدة.</p>
-                </div>
-            </div>
-            <div class="grid-2" style="max-width: 800px; margin: 0 auto;">
-                <div class="tile">
-                    <i class="fas fa-cubes" style="font-size: 32px; color: #166534; margin-bottom: 15px;"></i>
-                    <h3>4. بناء النماذج الأولية</h3>
-                    <p style="font-size: 15px; color: #334155;">تحويل المقترحات المقرة إلى واجهات رقمية ومساعد تفاعلي ذكي يحاكي التجربة الفعلية بدقة رشيقة.</p>
-                </div>
-                <div class="tile">
-                    <i class="fas fa-vial" style="font-size: 32px; color: #166534; margin-bottom: 15px;"></i>
-                    <h3>5. الاختبار والتقييم</h3>
-                    <p style="font-size: 15px; color: #334155;">عرض النماذج على الفئات المستهدفة جماعياً لقياس سهولة الاستخدام وكفاءة المعالجة الرقمية وسرعتها.</p>
-                </div>
-            </div>
+            <h1>عن المشروع والمنهجية العلمية المتبعة</h1>
+            <p>تم تطوير هذا الموقع المرشد كدراسة حالة تطبيقية متكاملة لربط الحلول البرمجية بالاحتياجات الفعلية للطلبة الجدد استناداً لمراحل التفكير التصميمي الخمس: التعاطف، التحديد، توليد الأفكار، بناء النماذج الأولية، والاختبار.</p>
         </div>
 
         <div class="grid-2">
             <div class="glass-card">
-                <h2>فريق العمل القائم على المشروع</h2>
-                <p>تم إعداد وتصميم هذا العمل بجهد مشترك وتكامل وتوزيع للأدوار بين زملاء برنامج ماجستير إدارة الموارد البشرية التطبيقية:</p>
-                <div class="list-item"><b>محمود نوفل:</b> مسؤول مرحلة التعاطف، بناء الاستبيان الميداني، وتحليل البيانات الإحصائية ونقاط الألم المكتشفة.</div>
-                <div class="list-item"><b>مروى الطوخي:</b> مسؤولة مرحلة توليد الأفكار، غربلة وتصفية المقترحات، وتصميم المسار الإجرائي والحلول الهيكلية.</div>
-                <div class="list-item"><b>شعلي خليل:</b> مسؤول مرحلة بناء النماذج الأولية الرقمية، هندسة وبرمجة الواجهات والتشات بوت، وكاتب التقارير الفنية.</div>
+                <div class="section-header">فريق العمل القائم على التصميم</div>
+                <div class="list-item"><b>محمود نوفل:</b> مسؤول مرحلة التعاطف، تعبئة وتفريغ الاستبيان الميداني وتحليل التحديات الإجرائية.</div>
+                <div class="list-item"><b>مروى الطوخي:</b> مسؤولة مرحلة توليد الأفكار، تطبيق هندسة فرز الحلول عبر أداة قمع الأفكار وزهرة اللوتس.</div>
+                <div class="list-item"><b>شعلي خليل:</b> مسؤول مرحلة بناء النماذج الرقمية عالية الدقة، هندسة الأكواد التفاعلية، ومعالجة الربط السحابي والتشات بوت.</div>
             </div>
 
             <div class="glass-card">
-                <h2>الإشراف الأكاديمي والمؤسسي</h2>
-                <p>يأتي هذا المشروع التطبيقي كجزء أساسي من متطلبات التخرج العملي والميداني لمساق الدراسات العليا المعتمد بالجامعة:</p>
+                <div class="section-header">الإشراف الأكاديمي المباشر</div>
+                <p>يأتي هذا المشروع العملي كمتطلب تخرج تطبيقي أساسي ضمن بنود المساق المعتمد في الجامعة:</p>
                 <div class="alert-box">
-                    <p><b>المساق الدراسي المعتمد:</b> التفكير التصميمي لمختصي إدارة الموارد البشرية (6531).</p>
-                    <p style="margin-top: 15px;"><b>تحت إشراف الدكتور الفاضل:</b> د. طارق المبروك.</p>
+                    <p><b>المساق الدراسي:</b> التفكير التصميمي لمختصي إدارة الموارد البشرية (6531).</p>
+                    <p style="margin-top: 10px;"><b>تحت إشراف الدكتور الفاضل:</b> د. طارق المبروك.</p>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="toast-container" id="toastContainer"></div>
-
-    <footer>
-        <p>جميع الحقوق محفوظة © جامعة القدس المفتوحة - مساق التفكير التصميمي 2026</p>
-    </footer>
-
-    <script>
-        const container = document.getElementById('toastContainer');
-        setTimeout(() => {
-            const toast = document.createElement('div');
-            toast.className = 'toast-notification';
-            toast.innerHTML = '<i class="fas fa-graduation-cap"></i> <span>تم استكمال هيكلة دراسة الحالة بنجاح وفق الخطى الخمس للتفكير التصميمي المعتمد بالمساق.</span>';
-            container.appendChild(toast);
-            setTimeout(() => toast.remove(), 6000);
-        }, 2000);
-    </script>
 </body>
 </html>

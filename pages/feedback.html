@@ -7,45 +7,19 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        .form-group {
-            margin-bottom: 25px;
-        }
-        .form-label {
-            display: block;
-            font-family: 'Cairo', sans-serif;
-            font-weight: 700;
-            color: #14532d;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-        .form-control {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.7);
-            border-radius: 16px;
-            padding: 16px;
-            font-size: 16px;
-            font-family: 'Tajawal', sans-serif;
-            color: #0f172a;
-            font-weight: 600;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-        .form-control:focus {
-            border-color: #22c55e;
-            background: rgba(255, 255, 255, 0.8);
-            box-shadow: 0 10px 25px rgba(34, 197, 94, 0.08);
-        }
-        textarea.form-control {
-            resize: vertical;
-            min-height: 180px;
-        }
+        .form-group { margin-bottom: 25px; }
+        .form-label { display: block; font-family: 'Cairo', sans-serif; font-weight: 700; color: #14532d; margin-bottom: 10px; font-size: 18px; }
+        .form-control { width: 100%; background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(10px); border: 2px solid rgba(255, 255, 255, 0.7); border-radius: 16px; padding: 16px; font-size: 16px; font-family: 'Tajawal', sans-serif; color: #0f172a; font-weight: 600; outline: none; transition: all 0.3s ease; }
+        .form-control:focus { border-color: #16a34a; background: rgba(255, 255, 255, 0.8); box-shadow: 0 10px 25px rgba(22, 163, 74, 0.08); }
+        textarea.form-control { resize: vertical; min-height: 180px; }
     </style>
 </head>
 <body>
     <nav class="navbar">
         <a href="../index.html" class="navbar-brand">جامعة القدس المفتوحة</a>
+        <div class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">
+            <i class="fas fa-bars"></i>
+        </div>
         <ul class="nav-links">
             <li><a href="../index.html">الرئيسية</a></li>
             <li><a href="registration.html">إجراءات التسجيل</a></li>
@@ -61,7 +35,7 @@
     <div class="container">
         <div class="glass-card">
             <h1>ساعدنا في تطوير الدليل الإرشادي</h1>
-            <p>رأيكم هو الركيزة الأساسية لتجويد وتحسين مخرجات التحول الرقمي. يرجى تزويدنا بتجربتكم ومقترحاتكم حول تسهيل الإجراءات الأكاديمية والتقنية المطروحة في هذا الدليل لنتمكن من توثيقها حياً ومباشرة داخل السجلات المركزية السحابية للجامعة.</p>
+            <p>رأيكم ومقترحاتكم هي حجر الزاوية لتجويد وتحسين مخرجات التحول الرقمي. يرجى تزويدنا بتجربتكم لتصل فوراً وتُوثق حياً داخل السجلات المركزية السحابية لجدول بيانات الجيميل المعتمد.</p>
         </div>
 
         <div class="glass-card">
@@ -104,19 +78,13 @@
             submitBtn.disabled = true;
             submitBtn.innerText = 'جاري المزامنة السحابية...';
 
-            const payload = {
-                name: name,
-                feedback: text,
-                date: date
-            };
+            const payload = { name: name, feedback: text, date: date };
 
             fetch(scriptUrl, {
                 method: 'POST',
                 mode: 'no-cors',
                 cache: 'no-cache',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             })
             .then(() => {
@@ -124,7 +92,6 @@
                 successToast.className = 'toast-notification';
                 successToast.innerHTML = `<i class="fas fa-cloud-upload-alt" style="color: #22c55e;"></i> <span>برافو! تم إرسال التغذية الراجعة وحفظها في قاعدة بيانات Google Sheets الحية بنجاح.</span>`;
                 container.appendChild(successToast);
-                
                 document.getElementById('feedbackForm').reset();
                 setTimeout(() => successToast.remove(), 6000);
             })
